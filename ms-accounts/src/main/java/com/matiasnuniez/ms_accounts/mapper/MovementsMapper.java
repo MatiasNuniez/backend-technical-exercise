@@ -1,9 +1,13 @@
 package com.matiasnuniez.ms_accounts.mapper;
 import java.time.LocalDateTime;
+
+import org.springframework.stereotype.Component;
+
 import com.matiasnuniez.ms_accounts.dto.MovementsResponseDTO;
 import com.matiasnuniez.ms_accounts.model.Movements;
 import com.matiasnuniez.ms_accounts.model.Account;
 
+@Component
 public class MovementsMapper {
 
     public MovementsResponseDTO toResponseDTO (Movements movements){

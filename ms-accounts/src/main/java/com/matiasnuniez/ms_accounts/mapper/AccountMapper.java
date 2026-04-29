@@ -1,8 +1,12 @@
 package com.matiasnuniez.ms_accounts.mapper;
 import com.matiasnuniez.ms_accounts.model.Account;
+
+import org.springframework.stereotype.Component;
+
 import com.matiasnuniez.ms_accounts.dto.AccountDTO;
 import com.matiasnuniez.ms_accounts.dto.AccountResponseDTO;
 
+@Component
 public class AccountMapper {
 
     public AccountResponseDTO toResponseDTO(Account account){
