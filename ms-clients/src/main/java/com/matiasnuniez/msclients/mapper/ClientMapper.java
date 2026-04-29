@@ -1,6 +1,7 @@
 package com.matiasnuniez.msclients.mapper;
 import com.matiasnuniez.msclients.dto.ClientResponseDTO;
 import com.matiasnuniez.msclients.model.Client;
+import org.springframework.stereotype.Component;
 @Component
 public class ClientMapper {
 
