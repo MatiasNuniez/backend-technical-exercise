@@ -1,4 +1,5 @@
 package com.matiasnuniez.msclients.mapper;
+import com.matiasnuniez.msclients.dto.ClientDTO;
 import com.matiasnuniez.msclients.dto.ClientResponseDTO;
 import com.matiasnuniez.msclients.model.Client;
 import org.springframework.stereotype.Component;
@@ -18,9 +19,9 @@ public class ClientMapper {
         return dto;
     }
 
-    public Client toEntity(ClientResponseDTO dto){
+    public Client toEntity(ClientDTO dto){
         Client client = new Client();
-        client.setClientID(dto.getClientID());
+        client.setClientID(client.getClientID());
         client.setName(dto.getName());
         client.setAge(dto.getAge());
         client.setAddress(dto.getAddress());
