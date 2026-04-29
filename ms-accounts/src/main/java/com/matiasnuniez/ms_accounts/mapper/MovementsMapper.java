@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
 
+import com.matiasnuniez.ms_accounts.dto.MovementsDTO;
 import com.matiasnuniez.ms_accounts.dto.MovementsResponseDTO;
 import com.matiasnuniez.ms_accounts.model.Movements;
 import com.matiasnuniez.ms_accounts.model.Account;
@@ -21,7 +22,7 @@ public class MovementsMapper {
         return dto;
     }
 
-    public Movements toEntity(MovementsResponseDTO dto, Account account){
+    public Movements toEntity(MovementsDTO dto, Account account){
         Movements movements = new Movements();
         movements.setDate(LocalDateTime.now());
         movements.setAccount(account);
