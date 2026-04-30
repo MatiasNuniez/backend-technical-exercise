@@ -10,6 +10,7 @@ import com.matiasnuniez.msclients.mapper.ClientMapper;
 import com.matiasnuniez.msclients.dto.ClientResponseDTO;
 import com.matiasnuniez.msclients.repository.ClientRepository;
 import com.matiasnuniez.msclients.model.Client;
+import com.matiasnuniez.msclients.messaging.producer.ClientEventProducer;
 
 @Service
 @RequiredArgsConstructor
@@ -17,11 +18,13 @@ public class ClientServiceImpl implements ClientService{
 
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
+    private final ClientEventProducer clientEventProducer;
 
     @Override
     public ClientResponseDTO create(ClientDTO dto) {
         Client client = clientMapper.toEntity(dto);
         Client savedClient = clientRepository.save(client);
+        clientEventProducer.publishClientCreated(savedClient);
         return clientMapper.toResponseDTO(savedClient);
     }
 
@@ -49,6 +52,7 @@ public class ClientServiceImpl implements ClientService{
         Client client = clientRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Client not found with id: " + id));
         clientRepository.delete(client);
+        clientEventProducer.publishClientDeleted(id);
     }
 
     @Override
