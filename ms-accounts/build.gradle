@@ -39,6 +39,7 @@ dependencies {
 	implementation 'org.springframework.retry:spring-retry'
 	compileOnly 'org.projectlombok:lombok'
   	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'com.intuit.karate:karate-junit5:1.4.0'
 }
 
 dependencyManagement {
