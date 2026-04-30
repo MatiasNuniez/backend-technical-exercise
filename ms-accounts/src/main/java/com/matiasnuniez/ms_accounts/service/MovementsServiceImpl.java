@@ -1,6 +1,8 @@
 package com.matiasnuniez.ms_accounts.service;
 
+import com.matiasnuniez.ms_accounts.client.MsClientsRestClient;
 import com.matiasnuniez.ms_accounts.dto.AccountDetailsDTO;
+import com.matiasnuniez.ms_accounts.dto.ClientEventDTO;
 import com.matiasnuniez.ms_accounts.dto.StateAccountDTO;
 import com.matiasnuniez.ms_accounts.dto.MovementsDTO;
 import com.matiasnuniez.ms_accounts.dto.MovementsResponseDTO;
@@ -25,6 +27,7 @@ public class MovementsServiceImpl implements MovementsService {
     private final MovementsRepository movementsRepository;
     private final AccountRepository accountRepository;
     private final MovementsMapper movementsMapper;
+    private final MsClientsRestClient msClientsRestClient;
     @Override
     public MovementsResponseDTO create(MovementsDTO dto) {
         Account account = accountRepository.findById(dto.getAccountID())
@@ -82,6 +85,7 @@ public class MovementsServiceImpl implements MovementsService {
 
     @Override
     public List<StateAccountDTO> getAccountStatement(Long clientId, LocalDateTime startDate, LocalDateTime endDate) {
+        ClientEventDTO client = msClientsRestClient.getClient(clientId);
         List<Account> accounts = accountRepository.findAccountsByClientID(clientId);
 
         return accounts.stream().map(account -> {
@@ -100,6 +104,7 @@ public class MovementsServiceImpl implements MovementsService {
 
             StateAccountDTO stateAccount = new StateAccountDTO();
             stateAccount.setClientID(clientId);
+            stateAccount.setName(client.getName());
             stateAccount.setAccounts(List.of(accountDetail));
             return stateAccount;
         }).collect(Collectors.toList());
