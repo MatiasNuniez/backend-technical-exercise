@@ -6,12 +6,11 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.support.converter.SimpleMessageConverter;
-import java.util.List;
 
 @Configuration
 public class RabbitMQConfig {
@@ -40,9 +39,7 @@ public class RabbitMQConfig {
 
     @Bean
     public MessageConverter messageConverter() {
-        SimpleMessageConverter converter = new SimpleMessageConverter();
-        converter.setAllowedListPatterns(List.of("com.matiasnuniez.*", "java.*"));
-        return converter;
+        return new JacksonJsonMessageConverter();
     }
 
     @Bean
