@@ -1,0 +1,195 @@
+{
+  "info": {
+    "name": "Backend Technical Exercise",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "ms_clients_url", "value": "http://localhost:8080/api" },
+    { "key": "ms_accounts_url", "value": "http://localhost:8081/api" }
+  ],
+  "item": [
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Obtener todos los clientes",
+          "request": {
+            "method": "GET",
+            "url": "{{ms_clients_url}}/clients"
+          }
+        },
+        {
+          "name": "Obtener cliente por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{ms_clients_url}}/clients/1"
+          }
+        },
+        {
+          "name": "Crear cliente",
+          "request": {
+            "method": "POST",
+            "url": "{{ms_clients_url}}/clients",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jose Lema\",\n  \"gender\": \"M\",\n  \"age\": 30,\n  \"identification\": \"1234567890\",\n  \"address\": \"Otavalo sn y principal\",\n  \"phone\": \"098254785\",\n  \"password\": \"abc123\",\n  \"state\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Actualizar cliente",
+          "request": {
+            "method": "PUT",
+            "url": "{{ms_clients_url}}/clients/1",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jose Lema\",\n  \"gender\": \"M\",\n  \"age\": 31,\n  \"identification\": \"1234567890\",\n  \"address\": \"Otavalo sn y principal\",\n  \"phone\": \"098254785\",\n  \"password\": \"abc123\",\n  \"state\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Eliminar cliente",
+          "request": {
+            "method": "DELETE",
+            "url": "{{ms_clients_url}}/clients/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cuentas",
+      "item": [
+        {
+          "name": "Obtener todas las cuentas",
+          "request": {
+            "method": "GET",
+            "url": "{{ms_accounts_url}}/accounts"
+          }
+        },
+        {
+          "name": "Obtener cuenta por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{ms_accounts_url}}/accounts/1"
+          }
+        },
+        {
+          "name": "Crear cuenta",
+          "request": {
+            "method": "POST",
+            "url": "{{ms_accounts_url}}/accounts",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"478758\",\n  \"accountType\": \"Ahorro\",\n  \"initialBalance\": 2000.00,\n  \"state\": true,\n  \"clientID\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Actualizar cuenta",
+          "request": {
+            "method": "PUT",
+            "url": "{{ms_accounts_url}}/accounts/1",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"478758\",\n  \"accountType\": \"Ahorro\",\n  \"initialBalance\": 2000.00,\n  \"state\": true,\n  \"clientID\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Eliminar cuenta",
+          "request": {
+            "method": "DELETE",
+            "url": "{{ms_accounts_url}}/accounts/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Movimientos",
+      "item": [
+        {
+          "name": "Obtener todos los movimientos",
+          "request": {
+            "method": "GET",
+            "url": "{{ms_accounts_url}}/movements"
+          }
+        },
+        {
+          "name": "Obtener movimiento por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{ms_accounts_url}}/movements/1"
+          }
+        },
+        {
+          "name": "Crear movimiento (depósito)",
+          "request": {
+            "method": "POST",
+            "url": "{{ms_accounts_url}}/movements",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"movementType\": \"Deposito\",\n  \"value\": 600.00,\n  \"accountID\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Crear movimiento (retiro)",
+          "request": {
+            "method": "POST",
+            "url": "{{ms_accounts_url}}/movements",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"movementType\": \"Retiro\",\n  \"value\": -575.00,\n  \"accountID\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Actualizar movimiento",
+          "request": {
+            "method": "PUT",
+            "url": "{{ms_accounts_url}}/movements/1",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"movementType\": \"Deposito\",\n  \"value\": 1000.00,\n  \"accountID\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Eliminar movimiento",
+          "request": {
+            "method": "DELETE",
+            "url": "{{ms_accounts_url}}/movements/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reportes",
+      "item": [
+        {
+          "name": "Estado de cuenta por cliente y rango de fechas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{ms_accounts_url}}/reports?clientId=1&startDate=2024-01-01&endDate=2024-12-31",
+              "host": ["{{ms_accounts_url}}"],
+              "path": ["reports"],
+              "query": [
+                { "key": "clientId", "value": "1" },
+                { "key": "startDate", "value": "2024-01-01" },
+                { "key": "endDate", "value": "2024-12-31" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
