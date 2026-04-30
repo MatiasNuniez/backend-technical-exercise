@@ -1,0 +1,54 @@
+package com.matiasnuniez.msclients.config;
+
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.support.converter.SimpleMessageConverter;
+import java.util.List;
+
+@Configuration
+public class RabbitMQConfig {
+
+    public static final String EXCHANGE = "clients.exchange";
+    public static final String QUEUE = "clients.queue";
+    public static final String ROUTING_KEY = "clients.routing.key";
+
+    @Bean
+    public TopicExchange exchange() {
+        return new TopicExchange(EXCHANGE);
+    }
+
+    @Bean
+    public Queue queue() {
+        return new Queue(QUEUE, true); 
+    }
+
+    @Bean
+    public Binding binding(Queue queue, TopicExchange exchange) {
+        return BindingBuilder
+                .bind(queue)
+                .to(exchange)
+                .with(ROUTING_KEY);
+    }
+
+    @Bean
+    public MessageConverter messageConverter() {
+        SimpleMessageConverter converter = new SimpleMessageConverter();
+        converter.setAllowedListPatterns(List.of("com.matiasnuniez.*", "java.*"));
+        return converter;
+    }
+
+    @Bean
+    public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory) {
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setMessageConverter(messageConverter());
+        return rabbitTemplate;
+    }
+}
